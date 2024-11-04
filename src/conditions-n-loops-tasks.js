@@ -21,8 +21,8 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  return number >= 0;
 }
 
 /**
@@ -38,8 +38,11 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  if (a > b) {
+    return a > c ? a : c;
+  }
+  return b > c ? b : c;
 }
 
 /**
@@ -82,10 +85,18 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (a === b && c > 0 && a + b > c) {
+    return true;
+  }
+  if (b === c && a > 0 && b + c > a) {
+    return true;
+  }
+  if (a === c && b > 0 && a + c > b) {
+    return true;
+  }
+  return false;
 }
-
 /**
  * Converts a number to Roman numerals. The number will be between 1 and 39.
  * In this task, the use of methods of the String and Array classes is not allowed.
@@ -100,8 +111,30 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  let value = num;
+  let res = '';
+  while (value > 9) {
+    res += 'X';
+    value -= 10;
+  }
+  if (value === 9) {
+    res += 'IX';
+    value -= 9;
+  }
+  if (value > 4) {
+    res += 'V';
+    value -= 5;
+  }
+  if (value === 4) {
+    res += 'IV';
+    value -= 4;
+  }
+  while (value > 0) {
+    res += 'I';
+    value -= 1;
+  }
+  return res;
 }
 
 /**
@@ -119,8 +152,38 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  const values = {
+    0: 'zero',
+    1: 'one',
+    2: 'two',
+    3: 'three',
+    4: 'four',
+    5: 'five',
+    6: 'six',
+    7: 'seven',
+    8: 'eight',
+    9: 'nine',
+    '.': 'point',
+    ',': 'point',
+    '-': 'minus',
+    '+': 'plus',
+  };
+  let res = '';
+  for (let i = 0; i < numberStr.length; i += 1) {
+    switch (numberStr[i]) {
+      case '~':
+        res += 'zero';
+        break;
+      default:
+        break;
+    }
+    res += values[numberStr[i]];
+    if (i + 1 !== numberStr.length) {
+      res += ' ';
+    }
+  }
+  return res;
 }
 
 /**
