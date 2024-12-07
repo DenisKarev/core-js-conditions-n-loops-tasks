@@ -367,8 +367,6 @@ function getSpiralMatrix(size) {
   }
   return resArr;
 }
-console.log(getSpiralMatrix(3));
-console.log('object');
 /**
  * Rotates a matrix by 90 degrees clockwise in place.
  * Take into account that the matrix size can be very large. Consider how you can optimize your solution.
@@ -384,10 +382,26 @@ console.log('object');
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const resMatrix = matrix;
+  const size = resMatrix[0].length;
+  const layers = Math.trunc(size / 2);
+  for (let i = 0; i < layers; i += 1) {
+    const start = i;
+    const end = size - i - 1;
+    for (let j = start; j < end; j += 1) {
+      const delta = j - i;
+      const top = resMatrix[start][j];
+      const right = resMatrix[j][end];
+      const bottom = resMatrix[end][end - delta];
+      const left = resMatrix[end - delta][start];
+      resMatrix[start][j] = left;
+      resMatrix[j][end] = top;
+      resMatrix[end][end - delta] = right;
+      resMatrix[end - delta][start] = bottom;
+    }
+  }
 }
-
 /**
  * Sorts an array of numbers in ascending order in place.
  * Employ any sorting algorithm of your choice.
