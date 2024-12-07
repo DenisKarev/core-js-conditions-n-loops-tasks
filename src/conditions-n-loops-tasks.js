@@ -328,10 +328,47 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
-}
+function getSpiralMatrix(size) {
+  const resArr = [];
+  for (let i = 0; i < size; i += 1) {
+    resArr[i] = [];
+  }
 
+  let fillNum = 1;
+  let rowTop = 0;
+  let rowBott = size - 1;
+  let colStart = 0;
+  let colFin = size - 1;
+  while (rowTop <= rowBott && colStart <= colFin) {
+    for (let i = colStart; i <= colFin; i += 1) {
+      resArr[rowTop][i] = fillNum;
+      fillNum += 1;
+    }
+    rowTop += 1;
+    for (let i = rowTop; i <= rowBott; i += 1) {
+      resArr[i][colFin] = fillNum;
+      fillNum += 1;
+    }
+    colFin -= 1;
+    if (rowTop <= rowBott) {
+      for (let i = colFin; i >= colStart; i -= 1) {
+        resArr[rowBott][i] = fillNum;
+        fillNum += 1;
+      }
+      rowBott -= 1;
+    }
+    if (colStart <= colFin) {
+      for (let i = rowBott; i >= rowTop; i -= 1) {
+        resArr[i][colStart] = fillNum;
+        fillNum += 1;
+      }
+      colStart += 1;
+    }
+  }
+  return resArr;
+}
+console.log(getSpiralMatrix(3));
+console.log('object');
 /**
  * Rotates a matrix by 90 degrees clockwise in place.
  * Take into account that the matrix size can be very large. Consider how you can optimize your solution.
